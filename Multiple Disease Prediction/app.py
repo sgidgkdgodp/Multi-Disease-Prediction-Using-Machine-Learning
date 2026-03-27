@@ -12,17 +12,11 @@ from streamlit_option_menu import option_menu   # used to create sidebar menu
 # ===================== Load Saved Models =====================
 # We load our saved machine learning models using their file paths
 
-diabetes_model = pickle.load(
-    open('C:/Users/singh/OneDrive/Desktop/Multiple Disease Prediction/Saved Models/diabetes_model.sav', 'rb')
-)
+diabetes_model = pickle.load(open('Saved Models/diabetes_model.sav','rb'))
 
-heart_disease_model = pickle.load(
-    open('C:/Users/singh/OneDrive/Desktop/Multiple Disease Prediction/Saved Models/heart_disease_model.sav', 'rb')
-)
+heart_disease_model = pickle.load(open('Saved Models/heart_disease_model.sav','rb'))
 
-parkinsons_model = pickle.load(
-    open('C:/Users/singh/OneDrive/Desktop/Multiple Disease Prediction/Saved Models/parkinsons_model.sav', 'rb')
-)
+parkinsons_model = pickle.load(open('Saved Models/parkinsons_model.sav','rb'))
 
 
 # ===================== Sidebar Menu =====================
