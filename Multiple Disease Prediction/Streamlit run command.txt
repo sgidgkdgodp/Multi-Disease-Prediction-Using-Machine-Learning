@@ -1,0 +1,414 @@
+run command ---->        streamlit run "C:\Users\singh\OneDrive\Desktop\Multiple Disease Prediction\Multiple Disease Pred.py"
+
+
+
+
+
+
+Code
+
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Nov 17 04:29:23 2025
+
+@author: singh
+"""
+
+import pickle
+import streamlit as st
+from streamlit_option_menu import option_menu
+
+# Loading the saved models
+
+
+diabetes_model = pickle.load(open('C:/Users/singh/OneDrive/Desktop/Multiple Disease Prediction/Saved Models/diabetes_model.sav','rb'))
+
+heart_disease_model = pickle.load(open('C:/Users/singh/OneDrive/Desktop/Multiple Disease Prediction/Saved Models/heart_disease_model.sav','rb'))
+
+parkinsons_model = pickle.load(open('C:/Users/singh/OneDrive/Desktop/Multiple Disease Prediction/Saved Models/parkinsons_model.sav','rb'))
+
+
+
+# sidebar for navigate
+with st.sidebar:
+    
+    selected = option_menu('Multiple Disease Prediction System using ML',
+                           ['Diabetes Prediction',
+                            'Heart Disease Prediction',
+                            'Parkinsons Disease Prediction'],
+                           icons= ['activity','heart','person'],
+                           default_index = 0)
+    
+    
+#=====================================================================================================================================================
+#DIABETES
+#=====================================================================================================================================================
+    
+    
+    
+# Diabetes Predition Page
+if (selected == 'Diabetes Prediction'):
+    
+    #page title
+    st.title('Diabetes Prediction using ML')
+    
+    
+    #getting the input data from the user
+    #columns for input fields
+    col1,col2,col3 = st.columns(3)          #column bananey ke liye hain . Hum issey hata bhi sakte hai bas different way mai show hoga
+    
+    with col1:
+        Pregnancies = st.text_input('Number of pregnancies')
+    
+    with col2:
+        Glucose = st.text_input('Enter Gulcose Level')
+    
+    with col3:
+        BloodPressure = st.text_input('Enter Blood Pressure')
+    
+    with col1:
+        SkinThickness = st.text_input('Enter SkinThickness value')
+    
+    with col2:
+        Insulin = st.text_input('Enter Insulin level')
+    
+    with col3:
+        BMI = st.text_input('Enter BMI')
+    
+    with col1:
+        DiabetesPedigreeFunction = st.text_input('Enter Diabetes Pedigree Function value')
+    
+    with col2:
+        Age = st.text_input('Enter your age')
+    
+    
+    
+    #code for prediction
+    diab_diagnosis = ''
+    
+    #creating a button for prediction
+    
+    if st.button('Diabetes Test Result'):
+        diab_prediction = diabetes_model.predict([[Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age]])
+    
+        if(diab_prediction[0]==1):
+            diab_diagnosis='The person is diabetic'
+            
+            
+        else:
+            diab_diagnosis='The person is not diabetic'
+            
+    st.success(diab_diagnosis)
+    
+#=====================================================================================================================================================
+#HEART DISEASE
+#=====================================================================================================================================================
+    
+
+
+# Heart Disease Predition Page
+if (selected == 'Heart Disease Prediction'):
+    
+    #page title
+    st.title('Heart Disease Prediction using ML')
+    
+    
+    #getting the input data from the user
+    #columns for input fields
+    col1,col2,col3 = st.columns(3)          #column bananey ke liye hain . Hum issey hata bhi sakte hai bas different way mai show hoga
+    
+    with col1:
+        age = st.text_input('Enter your Age')
+    
+    with col2:
+        sex = st.text_input('Enter your sex')
+    
+    with col3:
+        cp = st.text_input('Enter your Chest Pain Type')
+    
+    with col1:
+        trestbps = st.text_input('Enter Resting Bolld Pressure')
+    
+    with col2:
+        chol = st.text_input('Enter Serum Cholestoral in  mg/dl')
+    
+    with col3:
+        fbs = st.text_input('Enter Fasting Blood Sugar > 120 mg/dl')
+    
+    with col1:
+        restecg = st.text_input('Enter Resting Electrocardiographic results')
+    
+    with col2:
+        thalach = st.text_input('Enter your maximum heart rate achieved')
+    
+    with col3:
+        exang = st.text_input('Enter your exercise induced angina')
+    
+    with col1:
+        oldpeak = st.text_input('Enter your ST depression induced by exercise relative to rest')
+    
+    with col2:
+        slope = st.text_input('Enter your slope of the peak exercise ST segment')
+    
+    with col3:
+        ca = st.text_input('Enter your number of major vessels (0-3) colored by flourosopy')
+    
+    with col1:
+        thal = st.text_input('Enter 0 = normal; 1 = fixed defect; 2 = reversable defect')
+    
+    #code for prediction
+    heart_diagnosis = ''
+    
+    #creating a button for prediction
+    
+    if st.button('Heart Disease Result'):
+        heart_prediction = heart_disease_model.predict([[age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal]])
+    
+        if(heart_prediction[0]==1):
+            heart_diagnosis='The person have Heart Disease. Please consult to the doctor'
+            
+            
+        else:
+            heart_diagnosis='The person do not have heart disease.'
+            
+    st.success(heart_diagnosis)
+
+
+
+#=====================================================================================================================================================
+#PARKINSONS 
+#=====================================================================================================================================================
+
+# Parkinsons Disease Predition Page
+if (selected == 'Parkinsons Disease Prediction'):
+    
+    #page title
+    st.title('Parkinsons Disease Prediction using ML')
+    
+    
+    #getting the input data from the user
+    #columns for input fields
+    col1,col2,col3,col4,col5 = st.columns(5)          #column bananey ke liye hain . Hum issey hata bhi sakte hai bas different way mai show hoga
+    
+    with col1:
+        fo = st.text_input('MDVP:Fo(Hz)')
+    
+    with col2:
+        fhi = st.text_input('MDVP:Fhi(Hz)')
+    
+    with col3:
+        flo = st.text_input('MDVP:Flo(Hz)')
+    
+    with col4:
+        jitter_percent = st.text_input('MDVP:Jitter(%)')
+    
+    with col5:
+        jitter_abs = st.text_input('MDVP:Jitter(Abs)')
+    
+    with col1:
+        rap = st.text_input('MDVP:RAP')
+    
+    with col2:
+        ppq = st.text_input('MMDVP:PPQ')
+    
+    with col3:
+        ddp = st.text_input('Jitter:DDP')
+    
+    with col4:
+        shimmer = st.text_input('MDVP:Shimmer')
+    
+    with col5:
+        shimmer_db = st.text_input('MDVP:Shimmer(dB)')
+    
+    with col1:
+        apq3 = st.text_input('Shimmer:APQ3')
+    
+    with col2:
+        apq5 = st.text_input('Shimmer:APQ5')
+    
+    with col3:
+        apq = st.text_input('MDVP:APQ')
+    
+    with col4:
+        dda = st.text_input('Shimmer:DDA')
+    
+    with col5:
+        nhr = st.text_input('Enter NHR')
+    
+    with col1:
+        hnr = st.text_input('Enter HNR')
+    
+    with col2:
+        rpde = st.text_input('Enter RPDE')
+    
+    with col3:
+        dfa = st.text_input('Enter DFA')
+    
+    with col4:
+        spread1 = st.text_input('Enter Spread1')
+    
+    with col5:
+        spread2 = st.text_input('Enter Spread2')
+
+    with col1:
+        d2 = st.text_input('Enter D2')
+    
+    with col2:
+        ppe = st.text_input('Enter PPE')
+
+
+
+    
+    #code for prediction
+    parkinsons_diagnosis = ''
+    
+    #creating a button for prediction
+    
+    if st.button('Parkinsons Disease Result'):
+        parkinsons_prediction = parkinsons_model.predict([[fo, fhi, flo, jitter_percent, jitter_abs,
+                           rap, ppq, ddp, shimmer, shimmer_db, 
+                           apq3, apq5, apq, dda, nhr,
+                           hnr, rpde, dfa, spread1, spread2, d2, ppe]])
+        
+        
+        
+        
+        
+        
+        if(parkinsons_prediction[0]==1):
+            prankinsons_diagnosis='The person has Parkinsons Disease.'
+            
+            
+        else:
+            prankinsons_diagnosis='The person does not have Parkinsons Disease.'
+            
+    st.success(prankinsons_diagnosis)
+
+    
+    ==================================================================
+=================================================================================================================
+========================================================================================================================================
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct  7 02:39:07 2025
+
+@author: singh
+"""
+
+import numpy as np 
+import pickle
+import streamlit as st
+
+#loading saved model 
+loaded_model = pickle.load(open(r'E:\conda_envs\MachineLearning\deploy ML\trained_model.sav', 'rb'))
+
+#creating a function for prediction
+
+def diabetes_prediction(input_data):
+    
+    
+    
+    # changing the input_data to numpy array
+    input_data_as_numpy_array = np.asarray(input_data)
+
+    #reshape the array as we are predicting for one instance
+    input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+
+
+    prediction = loaded_model.predict(input_data_reshaped)
+    print(prediction)
+
+    if (prediction[0] == 0):
+        return 'The person is not diabetic'
+    else:
+        return 'The person is diabetic'
+    
+    
+    
+def main():
+    
+    
+    
+    #giving a title
+    st.title('Diabetes Prediction Web App')
+    
+    #getting the input from the user
+    
+
+    Pregnancies = st.text_input('Number of pregnancies')
+    Glucose = st.text_input('Enter Gulcose Level')
+    BloodPressure = st.text_input('Enter Blood Pressure')
+    SkinThickness = st.text_input('Enter SkinThickness value')
+    Insulin = st.text_input('Enter Insulin level')
+    BMI = st.text_input('Enter BMI')
+    DiabetesPedigreeFunction = st.text_input('Enter Diabetes Pedigree Function value')
+    Age = st.text_input('Enter your age')
+
+
+      # code for prediction
+    diagnosis = ''
+    
+     # creating a button for prediction
+     
+    if st.button('Diabetes Test Result'):
+        diagnosis = diabetes_prediction([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age])
+
+
+    st.success(diagnosis)
+
+
+
+
+
+if __name__ == '__main__':
+    main()
+
+
+
+    ===============================================================================================================
+=====================================================================================================================================
+
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import numpy as np
+import pickle
+
+ #loading saved model 
+loaded_model = pickle.load(open(r'E:\conda_envs\MachineLearning\deploy ML\trained_model.sav', 'rb'))
+
+  
+input_data = (4,110,92,0,0,37.6,0.191,30)
+
+# changing the input_data to numpy array
+input_data_as_numpy_array = np.asarray(input_data)
+
+#reshape the array as we are predicting for one instance
+input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+
+
+prediction = loaded_model.predict(input_data_reshaped)
+print(prediction)
+
+if (prediction[0] == 0):
+  print('The person is not diabetic')
+else:
+  print('The person is diabetic')
+  
+  
+    
+    
+    
+    
+    
+    
+    
